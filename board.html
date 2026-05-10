@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>السبورة الذكية - رسم يتحرك مع التكبير والتحريك</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+        body {
+            background: #0f172a;
+            overflow: hidden;
+            font-family: 'Segoe UI', system-ui;
+            height: 100vh;
+        }
+        .board {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        #bgCanvas {
+            z-index: 1;
+            background: white;
+        }
+        #drawCanvas {
+            z-index: 2;
+        }
+        /* القائمة العلوية */
+        .top-menu {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 2000;
+        }
+        .menu-dots {
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(10px);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 26px;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        .dropdown-menu {
+            position: absolute;
+            top: 65px;
+            right: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 12px;
+            min-width: 210px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: 0.2s;
+        }
+        .dropdown-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .menu-item {
+            padding: 10px 15px;
+            border-radius: 30px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            background: rgba(255,255,255,0.1);
+            transition: 0.2s;
+        }
+        .menu-item:hover { background: #3b82f6; }
+        .color-bg-item { justify-content: space-between; }
+        #bgColorPicker {
+            width: 30px; height: 30px;
+            border-radius: 50%;
+            border: 2px solid white;
+            cursor: pointer;
+        }
+        /* الشريط الجانبي */
+        .side-tools {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(12px);
+            border-radius: 50px;
+            padding: 15px 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 18px;
+            z-index: 1000;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .tool-icon {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            width: 55px;
+            height: 55px;
+            border-radius: 40px;
+            font-size: 26px;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+        .tool-icon.active { background: #3b82f6; box-shadow: 0 0 12px #3b82f6; }
+        .color-preview {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: black;
+            border: 2px solid white;
+            cursor: pointer;
+        }
+        /* نافذة الحجم */
+        .size-popup {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e293b;
+            backdrop-filter: blur(20px);
+            padding: 12px 25px;
+            border-radius: 60px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            z-index: 1200;
+            border: 1px solid #475569;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.2s;
+            pointer-events: none;
+        }
+        .size-popup.show {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: all;
+        }
+        .size-popup label {
+            color: white;
+            font-weight: bold;
+        }
+        #sizeSlider {
+            width: 200px;
+            accent-color: #3b82f6;
+        }
+        .size-value {
+            color: white;
+            font-weight: bold;
+            min-width: 45px;
+        }
+        .preview-circle {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: black;
+            border: 2px solid white;
+        }
+        .cursor-follower {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+            transition: 0.02s linear;
+            background: rgba(59,130,246,0.4);
+            border: 2px solid white;
+        }
+        @media (max-width:700px){
+            .side-tools{ left: 8px; padding: 10px 8px; gap: 12px; }
+            .tool-icon{ width: 45px; height: 45px; font-size: 22px; }
+            .color-preview{ width: 40px; height: 40px; }
+            .size-popup{ bottom: 70px; padding: 8px 18px; gap: 12px; }
+            #sizeSlider{ width: 140px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="board">
+    <canvas id="bgCanvas"></canvas>
+    <canvas id="drawCanvas"></canvas>
+</div>
+
+<!-- ثلاث نقاط -->
+<div class="top-menu">
+    <div class="menu-dots" id="menuBtn"><i class="fas fa-ellipsis-v"></i></div>
+    <div class="dropdown-menu" id="dropdown">
+        <div class="menu-item" id="clearDrawing"><i class="fas fa-trash-alt"></i> مسح الرسم</div>
+        <div class="menu-item" id="patternItem"><i class="fas fa-grip-lines"></i> تخطيط: بدون</div>
+        <div class="menu-item color-bg-item">
+            <span><i class="fas fa-palette"></i> لون الخلفية</span>
+            <div id="bgColorPicker" style="background:#ffffff;"></div>
+        </div>
+    </div>
+</div>
+
+<!-- الشريط الجانبي -->
+<div class="side-tools">
+    <button class="tool-icon" id="penBtn" title="قلم"><i class="fas fa-paintbrush"></i></button>
+    <div class="color-preview" id="penColorBtn" style="background:#000000;" title="لون القلم"></div>
+    <button class="tool-icon" id="eraserBtn" title="ممحاة"><i class="fas fa-eraser"></i></button>
+    <button class="tool-icon" id="panBtn" title="تحريك"><i class="fas fa-hand-peace"></i></button>
+    <button class="tool-icon" id="undoBtn" title="تراجع"><i class="fas fa-undo-alt"></i></button>
+    <button class="tool-icon" id="saveBtn" title="حفظ"><i class="fas fa-camera"></i></button>
+</div>
+
+<!-- نافذة الحجم -->
+<div class="size-popup" id="sizePopup">
+    <label id="sizeLabel"><i class="fas fa-pen-fancy"></i> حجم القلم:</label>
+    <input type="range" id="sizeSlider" min="2" max="200" value="6">
+    <span class="size-value" id="sizeValue">6px</span>
+    <div class="preview-circle" id="previewCircle"></div>
+</div>
+
+<div class="cursor-follower" id="cursorDot"></div>
+
+<script>
+    (function(){
+        // ---------- العناصر ----------
+        const bgCanvas = document.getElementById('bgCanvas');
+        const drawCanvas = document.getElementById('drawCanvas');
+        const bgCtx = bgCanvas.getContext('2d');
+        const drawCtx = drawCanvas.getContext('2d');
+        
+        // ---------- الكاميرا (تحريك + تكبير) ----------
+        let camera = { x: 0, y: 0, scale: 1 };
+        let isPanning = false;
+        let panStart = { x: 0, y: 0 };
+        
+        // ---------- الأدوات ----------
+        let currentTool = 'pen';   // 'pen', 'eraser', 'pan'
+        let penColor = '#000000';
+        let penSize = 6;
+        let eraserSize = 25;
+        let currentSize = penSize;  // الحجم النشط حسب الأداة
+        
+        // ---------- تخزين الرسم (متجهات) ----------
+        let strokes = [];           // كل ضربة: {points, color, size, tool}
+        let currentStroke = null;
+        let history = [];
+        let historyIndex = -1;
+        const MAX_HISTORY = 40;
+        
+        // ---------- إعدادات الخلفية ----------
+        let bgColor = '#FFFFFF';
+        let pattern = 'none';       // 'none', 'lines', 'grid'
+        
+        // ---------- دوال رسم الخلفية (مع الكاميرا) ----------
+        function drawBackground() {
+            const w = bgCanvas.width;
+            const h = bgCanvas.height;
+            bgCtx.fillStyle = bgColor;
+            bgCtx.fillRect(0, 0, w, h);
+            
+            bgCtx.save();
+            bgCtx.translate(camera.x, camera.y);
+            bgCtx.scale(camera.scale, camera.scale);
+            
+            if (pattern === 'lines') {
+                const spacing = 38;
+                bgCtx.beginPath();
+                bgCtx.strokeStyle = (bgColor === '#FFFFFF') ? '#C0C0E0' : '#A0AAB5';
+                bgCtx.lineWidth = 1.5 / camera.scale;
+                const startY = -camera.y / camera.scale - 600;
+                const endY = startY + h / camera.scale + 1200;
+                for (let y = startY; y < endY; y += spacing) {
+                    bgCtx.beginPath();
+                    bgCtx.moveTo(-2000, y);
+                    bgCtx.lineTo(2000, y);
+                    bgCtx.stroke();
+                }
+                bgCtx.beginPath();
+                bgCtx.strokeStyle = '#ff6b6b';
+                bgCtx.lineWidth = 2.5 / camera.scale;
+                bgCtx.moveTo(70, -2000);
+                bgCtx.lineTo(70, 2000);
+                bgCtx.stroke();
+            }
+            else if (pattern === 'grid') {
+                const cell = 50;
+                bgCtx.beginPath();
+                bgCtx.strokeStyle = (bgColor === '#FFFFFF') ? '#D0D0E8' : '#6F7A8F';
+                bgCtx.lineWidth = 1 / camera.scale;
+                const startX = -camera.x / camera.scale - 600;
+                const startY = -camera.y / camera.scale - 600;
+                const endX = startX + w / camera.scale + 1200;
+                const endY = startY + h / camera.scale + 1200;
+                for (let x = startX; x < endX; x += cell) {
+                    bgCtx.beginPath();
+                    bgCtx.moveTo(x, startY);
+                    bgCtx.lineTo(x, endY);
+                    bgCtx.stroke();
+                }
+                for (let y = startY; y < endY; y += cell) {
+                    bgCtx.beginPath();
+                    bgCtx.moveTo(startX, y);
+                    bgCtx.lineTo(endX, y);
+                    bgCtx.stroke();
+                }
+            }
+            bgCtx.restore();
+        }
+        
+        // رسم جميع الضربات المخزنة (تطبق عليها الكاميرا)
+        function drawStrokes() {
+            drawCtx.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
+            drawCtx.save();
+            drawCtx.translate(camera.x, camera.y);
+            drawCtx.scale(camera.scale, camera.scale);
+            
+            for (let stroke of strokes) {
+                if (!stroke.points || stroke.points.length === 0) continue;
+                drawCtx.beginPath();
+                drawCtx.lineCap = 'round';
+                drawCtx.lineJoin = 'round';
+                drawCtx.lineWidth = stroke.size;
+                
+                if (stroke.tool === 'pen') {
+                    drawCtx.globalCompositeOperation = 'source-over';
+                    drawCtx.strokeStyle = stroke.color;
+                } else { // ممحاة
+                    // نستخدم destination-out لمسح الرسم دون التأثير على الخلفية (لأن الخلفية في bgCanvas)
+                    drawCtx.globalCompositeOperation = 'destination-out';
+                    drawCtx.strokeStyle = 'rgba(0,0,0,1)'; // اللون不重要
+                }
+                
+                if (stroke.points.length === 1) {
+                    // نقطة مفردة
+                    drawCtx.beginPath();
+                    drawCtx.arc(stroke.points[0].x, stroke.points[0].y, stroke.size/2, 0, Math.PI*2);
+                    drawCtx.fillStyle = (stroke.tool === 'pen') ? stroke.color : 'rgba(0,0,0,1)';
+                    drawCtx.fill();
+                } else {
+                    for (let i = 1; i < stroke.points.length; i++) {
+                        drawCtx.beginPath();
+                        drawCtx.moveTo(stroke.points[i-1].x, stroke.points[i-1].y);
+                        drawCtx.lineTo(stroke.points[i].x, stroke.points[i].y);
+                        drawCtx.stroke();
+                    }
+                }
+            }
+            drawCtx.restore();
+        }
+        
+        function redrawAll() {
+            drawBackground();
+            drawStrokes();
+        }
+        
+        // ---------- إدارة التاريخ (التراجع) ----------
+        function saveToHistory() {
+            const snapshot = JSON.parse(JSON.stringify(strokes));
+            if (historyIndex < history.length - 1) {
+                history = history.slice(0, historyIndex + 1);
+            }
+            history.push(snapshot);
+            if (history.length > MAX_HISTORY) history.shift();
+            historyIndex = history.length - 1;
+        }
+        
+        function undo() {
+            if (historyIndex > 0) {
+                historyIndex--;
+                strokes = JSON.parse(JSON.stringify(history[historyIndex]));
+                redrawAll();
+            } else if (historyIndex === 0) {
+                strokes = [];
+                redrawAll();
+            }
+        }
+        
+        function clearDrawing() {
+            strokes = [];
+            saveToHistory();
+            redrawAll();
+        }
+        
+        // ---------- تحويل الإحداثيات (من الماوس إلى إحداثيات العالم مع الكاميرا) ----------
+        function getWorldCoordsFromEvent(e) {
+            const rect = drawCanvas.getBoundingClientRect();
+            let clientX, clientY;
+            if (e.touches) {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            } else {
+                clientX = e.clientX;
+                clientY = e.clientY;
+            }
+            let canvasX = (clientX - rect.left) * (drawCanvas.width / rect.width);
+            let canvasY = (clientY - rect.top) * (drawCanvas.height / rect.height);
+            canvasX = Math.min(Math.max(0, canvasX), drawCanvas.width);
+            canvasY = Math.min(Math.max(0, canvasY), drawCanvas.height);
+            // تحويل إلى إحداثيات العالم (نظام الرسم بدون تأثير الكاميرا)
+            return { x: (canvasX - camera.x) / camera.scale, y: (canvasY - camera.y) / camera.scale };
+        }
+        
+        // ---------- الرسم الحالي (متجهات) ----------
+        function startStroke(e) {
+            if (currentTool === 'pan') return;
+            const point = getWorldCoordsFromEvent(e);
+            currentStroke = {
+                points: [point],
+                color: (currentTool === 'pen') ? penColor : 'black', // اللون غير مهم للممحاة
+                size: currentSize,
+                tool: currentTool
+            };
+        }
+        
+        function addToStroke(e) {
+            if (!currentStroke || currentTool === 'pan') return;
+            e.preventDefault();
+            const point = getWorldCoordsFromEvent(e);
+            currentStroke.points.push(point);
+            // لإظهار التقدم أثناء الرسم، نعيد الرسم كاملاً مع الضربة الحالية مؤقتاً
+            redrawAll();
+            drawCtx.save();
+            drawCtx.translate(camera.x, camera.y);
+            drawCtx.scale(camera.scale, camera.scale);
+            drawCtx.beginPath();
+            drawCtx.lineCap = 'round';
+            drawCtx.lineJoin = 'round';
+            drawCtx.lineWidth = currentStroke.size;
+            if (currentStroke.tool === 'pen') {
+                drawCtx.globalCompositeOperation = 'source-over';
+                drawCtx.strokeStyle = currentStroke.color;
+            } else {
+                drawCtx.globalCompositeOperation = 'destination-out';
+                drawCtx.strokeStyle = 'rgba(0,0,0,1)';
+            }
+            for (let i = 1; i < currentStroke.points.length; i++) {
+                drawCtx.beginPath();
+                drawCtx.moveTo(currentStroke.points[i-1].x, currentStroke.points[i-1].y);
+                drawCtx.lineTo(currentStroke.points[i].x, currentStroke.points[i].y);
+                drawCtx.stroke();
+            }
+            drawCtx.restore();
+        }
+        
+        function endStroke() {
+            if (currentStroke && currentTool !== 'pan') {
+                strokes.push(currentStroke);
+                currentStroke = null;
+                saveToHistory();
+                redrawAll();
+            }
+        }
+        
+        // ---------- التحريك (Pan) ----------
+        function startPan(e) {
+            if (currentTool !== 'pan') return;
+            isPanning = true;
+            let clientX, clientY;
+            if (e.touches) {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            } else {
+                clientX = e.clientX;
+                clientY = e.clientY;
+            }
+            panStart.x = clientX - camera.x;
+            panStart.y = clientY - camera.y;
+            drawCanvas.style.cursor = 'grabbing';
+            bgCanvas.style.cursor = 'grabbing';
+        }
+        
+        function doPan(e) {
+            if (!isPanning || currentTool !== 'pan') return;
+            e.preventDefault();
+            let clientX, clientY;
+            if (e.touches) {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            } else {
+                clientX = e.clientX;
+                clientY = e.clientY;
+            }
+            camera.x = clientX - panStart.x;
+            camera.y = clientY - panStart.y;
+            redrawAll();
+        }
+        
+        function endPan() {
+            if (isPanning) {
+                isPanning = false;
+                drawCanvas.style.cursor = 'grab';
+                bgCanvas.style.cursor = 'grab';
+            }
+        }
+        
+        // ---------- التكبير (Zoom) بالماوس واللمس ----------
+        function handleZoom(e) {
+            e.preventDefault();
+            const delta = e.deltaY > 0 ? 0.9 : 1.1;
+            let newScale = camera.scale * delta;
+            newScale = Math.min(Math.max(0.2, newScale), 5);
+            const rect = drawCanvas.getBoundingClientRect();
+            let mouseX = e.clientX - rect.left;
+            let mouseY = e.clientY - rect.top;
+            mouseX = Math.min(Math.max(0, mouseX), drawCanvas.width);
+            mouseY = Math.min(Math.max(0, mouseY), drawCanvas.height);
+            const worldX = (mouseX - camera.x) / camera.scale;
+            const worldY = (mouseY - camera.y) / camera.scale;
+            camera.scale = newScale;
+            camera.x = mouseX - worldX * camera.scale;
+            camera.y = mouseY - worldY * camera.scale;
+            redrawAll();
+        }
+        
+        // Pinch zoom
+        let pinchDist = 0, pinchScale = 1, pinchCamX = 0, pinchCamY = 0;
+        function getDist(touches) {
+            const dx = touches[0].clientX - touches[1].clientX;
+            const dy = touches[0].clientY - touches[1].clientY;
+            return Math.hypot(dx, dy);
+        }
+        function onTouchPinchStart(e) {
+            if (e.touches.length === 2 && currentTool === 'pan') {
+                e.preventDefault();
+                pinchDist = getDist(e.touches);
+                pinchScale = camera.scale;
+                pinchCamX = camera.x;
+                pinchCamY = camera.y;
+            }
+        }
+        function onTouchPinchMove(e) {
+            if (e.touches.length === 2 && currentTool === 'pan') {
+                e.preventDefault();
+                const newDist = getDist(e.touches);
+                let factor = newDist / pinchDist;
+                let newScale = pinchScale * factor;
+                newScale = Math.min(Math.max(0.2, newScale), 5);
+                const rect = drawCanvas.getBoundingClientRect();
+                const centerX = (e.touches[0].clientX + e.touches[1].clientX) / 2 - rect.left;
+                const centerY = (e.touches[0].clientY + e.touches[1].clientY) / 2 - rect.top;
+                const worldX = (centerX - pinchCamX) / pinchScale;
+                const worldY = (centerY - pinchCamY) / pinchScale;
+                camera.scale = newScale;
+                camera.x = centerX - worldX * newScale;
+                camera.y = centerY - worldY * newScale;
+                redrawAll();
+            }
+        }
+        
+        // ---------- مؤشر الفأرة الديناميكي ----------
+        const cursorDot = document.getElementById('cursorDot');
+        function updateCursor(e) {
+            let x, y;
+            if (e.touches) {
+                x = e.touches[0].clientX;
+                y = e.touches[0].clientY;
+            } else {
+                x = e.clientX;
+                y = e.clientY;
+            }
+            cursorDot.style.left = x + 'px';
+            cursorDot.style.top = y + 'px';
+            let disp = Math.min(currentSize * camera.scale + 4, 70);
+            cursorDot.style.width = disp + 'px';
+            cursorDot.style.height = disp + 'px';
+            if (currentTool === 'pen') {
+                cursorDot.style.backgroundColor = penColor + 'aa';
+                cursorDot.style.border = '2px solid white';
+            } else if (currentTool === 'eraser') {
+                cursorDot.style.backgroundColor = 'rgba(255,255,255,0.85)';
+                cursorDot.style.border = '2px solid #333';
+            } else {
+                cursorDot.style.backgroundColor = 'rgba(100,150,255,0.6)';
+                cursorDot.style.border = '2px solid white';
+            }
+        }
+        
+        // ---------- واجهة المستخدم ----------
+        const penBtn = document.getElementById('penBtn');
+        const eraserBtn = document.getElementById('eraserBtn');
+        const panBtn = document.getElementById('panBtn');
+        const penColorBtn = document.getElementById('penColorBtn');
+        const undoBtn = document.getElementById('undoBtn');
+        const saveBtn = document.getElementById('saveBtn');
+        const sizePopup = document.getElementById('sizePopup');
+        const sizeSlider = document.getElementById('sizeSlider');
+        const sizeValueSpan = document.getElementById('sizeValue');
+        const previewCircle = document.getElementById('previewCircle');
+        const sizeLabel = document.getElementById('sizeLabel');
+        
+        function updateSizeUI() {
+            sizeSlider.value = currentSize;
+            sizeValueSpan.innerText = currentSize + 'px';
+            previewCircle.style.width = Math.min(currentSize, 50) + 'px';
+            previewCircle.style.height = Math.min(currentSize, 50) + 'px';
+            if (currentTool === 'pen') {
+                previewCircle.style.backgroundColor = penColor;
+            } else {
+                previewCircle.style.backgroundColor = '#cccccc';
+            }
+        }
+        
+        function setTool(tool) {
+            currentTool = tool;
+            penBtn.classList.remove('active');
+            eraserBtn.classList.remove('active');
+            panBtn.classList.remove('active');
+            if (tool === 'pen') {
+                penBtn.classList.add('active');
+                currentSize = penSize;
+                sizeLabel.innerHTML = '<i class="fas fa-pen-fancy"></i> حجم القلم:';
+                previewCircle.style.backgroundColor = penColor;
+            } else if (tool === 'eraser') {
+                eraserBtn.classList.add('active');
+                currentSize = eraserSize;
+                sizeLabel.innerHTML = '<i class="fas fa-eraser"></i> حجم الممحاة:';
+                previewCircle.style.backgroundColor = '#cccccc';
+            } else if (tool === 'pan') {
+                panBtn.classList.add('active');
+            }
+            drawCanvas.style.cursor = (tool === 'pan') ? 'grab' : 'crosshair';
+            bgCanvas.style.cursor = (tool === 'pan') ? 'grab' : 'crosshair';
+            if (tool === 'pen' || tool === 'eraser') {
+                updateSizeUI();
+                sizePopup.classList.add('show');
+            } else {
+                sizePopup.classList.remove('show');
+            }
+        }
+        
+        penBtn.addEventListener('click', () => setTool('pen'));
+        eraserBtn.addEventListener('click', () => setTool('eraser'));
+        panBtn.addEventListener('click', () => setTool('pan'));
+        
+        sizeSlider.addEventListener('input', (e) => {
+            currentSize = parseInt(e.target.value);
+            if (currentTool === 'pen') {
+                penSize = currentSize;
+            } else if (currentTool === 'eraser') {
+                eraserSize = currentSize;
+            }
+            updateSizeUI();
+        });
+        
+        // تغيير لون القلم
+        const hiddenColor = document.createElement('input');
+        hiddenColor.type = 'color';
+        hiddenColor.value = '#000000';
+        hiddenColor.style.position = 'absolute';
+        hiddenColor.style.opacity = '0';
+        document.body.appendChild(hiddenColor);
+        penColorBtn.addEventListener('click', () => hiddenColor.click());
+        hiddenColor.addEventListener('input', (e) => {
+            penColor = e.target.value;
+            penColorBtn.style.backgroundColor = penColor;
+            if (currentTool === 'pen') previewCircle.style.backgroundColor = penColor;
+        });
+        
+        undoBtn.addEventListener('click', undo);
+        saveBtn.addEventListener('click', () => {
+            const finalCanvas = document.createElement('canvas');
+            finalCanvas.width = drawCanvas.width;
+            finalCanvas.height = drawCanvas.height;
+            const fCtx = finalCanvas.getContext('2d');
+            fCtx.drawImage(bgCanvas, 0, 0);
+            fCtx.drawImage(drawCanvas, 0, 0);
+            const link = document.createElement('a');
+            link.download = `whiteboard_${Date.now()}.png`;
+            link.href = finalCanvas.toDataURL();
+            link.click();
+        });
+        
+        // ---------- القائمة العلوية (ثلاث نقاط) ----------
+        const menuBtn = document.getElementById('menuBtn');
+        const dropdown = document.getElementById('dropdown');
+        menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dropdown.classList.toggle('show');
+        });
+        document.addEventListener('click', () => dropdown.classList.remove('show'));
+        
+        document.getElementById('clearDrawing').addEventListener('click', () => {
+            clearDrawing();
+            dropdown.classList.remove('show');
+        });
+        
+        const patternItem = document.getElementById('patternItem');
+        let patIdx = 0;
+        patternItem.addEventListener('click', () => {
+            patIdx = (patIdx + 1) % 3;
+            if (patIdx === 0) { pattern = 'none'; patternItem.innerHTML = '<i class="fas fa-grip-lines"></i> تخطيط: بدون'; }
+            else if (patIdx === 1) { pattern = 'lines'; patternItem.innerHTML = '<i class="fas fa-grip-lines"></i> تخطيط: سطور'; }
+            else { pattern = 'grid'; patternItem.innerHTML = '<i class="fas fa-th"></i> تخطيط: مربعات'; }
+            redrawAll();
+            dropdown.classList.remove('show');
+        });
+        
+        const bgColorPicker = document.getElementById('bgColorPicker');
+        const bgHidden = document.createElement('input');
+        bgHidden.type = 'color';
+        bgHidden.value = '#FFFFFF';
+        bgHidden.style.position = 'absolute';
+        bgHidden.style.opacity = '0';
+        document.body.appendChild(bgHidden);
+        bgColorPicker.addEventListener('click', (e) => {
+            e.stopPropagation();
+            bgHidden.click();
+        });
+        bgHidden.addEventListener('input', (e) => {
+            bgColor = e.target.value;
+            bgColorPicker.style.backgroundColor = bgColor;
+            redrawAll();
+        });
+        
+        // ---------- ربط الأحداث العامة ----------
+        function bindEvents() {
+            drawCanvas.addEventListener('mousedown', (e) => {
+                if (currentTool === 'pan') startPan(e);
+                else startStroke(e);
+                updateCursor(e);
+            });
+            window.addEventListener('mousemove', (e) => {
+                if (currentTool === 'pan' && isPanning) doPan(e);
+                else if (currentStroke && currentTool !== 'pan') addToStroke(e);
+                updateCursor(e);
+            });
+            window.addEventListener('mouseup', () => {
+                if (isPanning) endPan();
+                if (currentStroke) endStroke();
+            });
+            drawCanvas.addEventListener('wheel', handleZoom, { passive: false });
+            drawCanvas.addEventListener('touchstart', (e) => {
+                if (e.touches.length === 1) {
+                    e.preventDefault();
+                    if (currentTool === 'pan') startPan(e);
+                    else startStroke(e);
+                    updateCursor(e);
+                } else if (e.touches.length === 2 && currentTool === 'pan') {
+                    onTouchPinchStart(e);
+                }
+            });
+            drawCanvas.addEventListener('touchmove', (e) => {
+                if (e.touches.length === 1 && (isPanning || currentStroke)) {
+                    e.preventDefault();
+                    if (currentTool === 'pan' && isPanning) doPan(e);
+                    else if (currentStroke && currentTool !== 'pan') addToStroke(e);
+                    updateCursor(e);
+                } else if (e.touches.length === 2 && currentTool === 'pan') {
+                    onTouchPinchMove(e);
+                }
+            });
+            drawCanvas.addEventListener('touchend', () => {
+                if (isPanning) endPan();
+                if (currentStroke) endStroke();
+            });
+            drawCanvas.addEventListener('touchcancel', () => {
+                if (isPanning) endPan();
+                if (currentStroke) endStroke();
+            });
+        }
+        
+        // ---------- التهيئة ----------
+        function resizeCanvases() {
+            const rect = document.querySelector('.board').getBoundingClientRect();
+            bgCanvas.width = rect.width;
+            bgCanvas.height = rect.height;
+            drawCanvas.width = rect.width;
+            drawCanvas.height = rect.height;
+            redrawAll();
+        }
+        
+        window.addEventListener('resize', () => {
+            resizeCanvases();
+        });
+        
+        function init() {
+            resizeCanvases();
+            bindEvents();
+            setTool('pen');
+            penSize = 6;
+            eraserSize = 25;
+            currentSize = penSize;
+            sizeSlider.value = penSize;
+            sizeValueSpan.innerText = penSize + 'px';
+            previewCircle.style.width = '20px';
+            previewCircle.style.height = '20px';
+            previewCircle.style.backgroundColor = '#000000';
+            penColor = '#000000';
+            penColorBtn.style.backgroundColor = '#000000';
+            bgColor = '#FFFFFF';
+            bgColorPicker.style.backgroundColor = '#FFFFFF';
+            pattern = 'none';
+            camera = { x: 0, y: 0, scale: 1 };
+            strokes = [];
+            saveToHistory();
+            redrawAll();
+            drawCanvas.style.cursor = 'crosshair';
+            drawCanvas.addEventListener('contextmenu', (e) => e.preventDefault());
+        }
+        init();
+    })();
+</script>
+</body>
+</html>
