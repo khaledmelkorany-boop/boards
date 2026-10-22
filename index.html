@@ -59,167 +59,89 @@ svg{display:block}
 i[data-i]{display:flex;align-items:center;justify-content:center}
 i[data-i] svg,button svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 
-/* ============ TOP BAR ============ */
-#top{
-  display:flex;align-items:center;gap:8px;height:var(--h-top);flex:none;
-  padding:0 12px;background:var(--surface);border-bottom:1px solid var(--line);
-  position:relative;z-index:20;
-}
+/* TOP BAR */
+#top{display:flex;align-items:center;gap:8px;height:var(--h-top);flex:none;padding:0 12px;background:var(--surface);border-bottom:1px solid var(--line);position:relative;z-index:20}
 #brand{display:flex;align-items:center;gap:9px;flex:none;padding-inline-end:4px}
-#brand .logo{
-  width:30px;height:30px;border-radius:9px;flex:none;
-  background:linear-gradient(135deg,var(--acc),#7c3aed);
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 2px 8px var(--acc-ring);
-}
+#brand .logo{width:30px;height:30px;border-radius:9px;flex:none;background:linear-gradient(135deg,var(--acc),#7c3aed);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px var(--acc-ring)}
 #brand .logo svg{width:17px;height:17px;stroke:#fff;stroke-width:2.2}
 #brand b{font-size:15px;font-weight:700;letter-spacing:-.2px;white-space:nowrap}
 #brand small{font-size:10px;font-weight:600;color:var(--mut);display:block;line-height:1;margin-top:1px}
 @media(max-width:900px){#brand small{display:none}}
-
-#tabs{
-  display:flex;gap:4px;flex:1;min-width:0;overflow-x:auto;scrollbar-width:none;
-  padding:6px 4px;align-items:center;
-}
+#tabs{display:flex;gap:4px;flex:1;min-width:0;overflow-x:auto;scrollbar-width:none;padding:6px 4px;align-items:center}
 #tabs::-webkit-scrollbar{display:none}
-.tab{
-  display:flex;align-items:center;gap:7px;height:36px;flex:none;max-width:190px;min-width:120px;
-  padding:0 6px 0 10px;border-radius:var(--r-sm);background:var(--surface-2);
-  border:1px solid transparent;font-size:12.5px;font-weight:500;color:var(--ink-2);
-  transition:background .15s,border-color .15s;user-select:none;
-}
+.tab{display:flex;align-items:center;gap:7px;height:36px;flex:none;max-width:190px;min-width:120px;padding:0 6px 0 10px;border-radius:var(--r-sm);background:var(--surface-2);border:1px solid transparent;font-size:12.5px;font-weight:500;color:var(--ink-2);transition:background .15s,border-color .15s;user-select:none}
 .tab:hover{background:var(--surface-3)}
 .tab.on{background:var(--acc-bg);border-color:var(--acc);color:var(--acc);font-weight:600}
-.tab .badge{
-  font-size:8.5px;font-weight:700;color:#fff;padding:2px 4px;border-radius:4px;
-  background:var(--danger);letter-spacing:.3px;flex:none;line-height:1;
-}
+.tab .badge{font-size:8.5px;font-weight:700;color:#fff;padding:2px 4px;border-radius:4px;background:var(--danger);letter-spacing:.3px;flex:none;line-height:1}
 .tab .badge.board{background:var(--ok)}
 .tab .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;direction:ltr;text-align:right}
 .tab .dot{width:6px;height:6px;border-radius:50%;background:var(--acc);flex:none}
-.tab .cls{
-  width:22px;height:22px;border-radius:5px;flex:none;display:flex;align-items:center;justify-content:center;
-  color:var(--mut);font-size:11px;transition:background .15s,color .15s;
-}
+.tab .cls{width:22px;height:22px;border-radius:5px;flex:none;display:flex;align-items:center;justify-content:center;color:var(--mut);font-size:11px;transition:background .15s,color .15s}
 .tab .cls:hover{background:var(--danger-bg);color:var(--danger)}
 .tab .cls.arm{background:var(--danger);color:#fff;font-size:9.5px;font-weight:700;width:auto;padding:0 6px}
-
 #top-actions{display:flex;align-items:center;gap:4px;flex:none}
 
-/* buttons */
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:6px;
-  height:34px;padding:0 12px;border-radius:var(--r-sm);
-  font-size:13px;font-weight:500;white-space:nowrap;
-  border:1px solid transparent;transition:background .15s,color .15s,border-color .15s,transform .1s;
-}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:34px;padding:0 12px;border-radius:var(--r-sm);font-size:13px;font-weight:500;white-space:nowrap;border:1px solid transparent;transition:background .15s,color .15s,border-color .15s,transform .1s}
 .btn:hover:not(:disabled){background:var(--surface-3)}
 .btn:active:not(:disabled){transform:scale(.97)}
 .btn:disabled{opacity:.35;cursor:not-allowed}
-.btn.primary{
-  background:var(--acc);color:#fff;font-weight:600;
-  box-shadow:0 1px 3px var(--acc-ring);
-}
+.btn.primary{background:var(--acc);color:#fff;font-weight:600;box-shadow:0 1px 3px var(--acc-ring)}
 .btn.primary:hover:not(:disabled){background:var(--acc-h)}
 .btn.ghost{border-color:var(--line);background:var(--surface)}
 .btn.ghost:hover:not(:disabled){border-color:var(--line-2);background:var(--surface-2)}
 .btn.icon{width:34px;padding:0}
 .btn.active{background:var(--acc-bg);color:var(--acc);border-color:var(--acc)}
 
-/* ============ COMMAND BAR ============ */
-#cmd{
-  display:flex;align-items:center;gap:10px;height:var(--h-cmd);flex:none;
-  padding:0 12px;background:var(--surface);border-bottom:1px solid var(--line);
-  overflow-x:auto;scrollbar-width:none;position:relative;z-index:15;
-}
+/* COMMAND BAR */
+#cmd{display:flex;align-items:center;gap:10px;height:var(--h-cmd);flex:none;padding:0 12px;background:var(--surface);border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none;position:relative;z-index:15}
 #cmd::-webkit-scrollbar{display:none}
-
-#tools{
-  display:flex;gap:2px;padding:3px;background:var(--surface-2);
-  border-radius:10px;border:1px solid var(--line);flex:none;
-}
+#tools{display:flex;gap:2px;padding:3px;background:var(--surface-2);border-radius:10px;border:1px solid var(--line);flex:none}
 #tools .btn{height:32px;padding:0 12px;border-radius:7px;font-size:12.5px}
-#tools .btn.active{
-  background:var(--surface);color:var(--acc);
-  box-shadow:var(--shadow-sm);border-color:var(--line);
-}
-
+#tools .btn.active{background:var(--surface);color:var(--acc);box-shadow:var(--shadow-sm);border-color:var(--line)}
 #props{display:flex;align-items:center;gap:14px;flex:none}
 #colors{display:flex;align-items:center;gap:6px}
 #colors::before{content:"اللون";font-size:11.5px;font-weight:600;color:var(--mut)}
-.swatch{
-  width:22px;height:22px;border-radius:50%;flex:none;
-  border:2px solid var(--surface);box-shadow:0 0 0 1px var(--line-2);
-  transition:box-shadow .15s,transform .1s;
-}
+.swatch{width:22px;height:22px;border-radius:50%;flex:none;border:2px solid var(--surface);box-shadow:0 0 0 1px var(--line-2);transition:box-shadow .15s,transform .1s}
 .swatch:hover{transform:scale(1.12)}
 .swatch.on{box-shadow:0 0 0 2px var(--acc)}
-input[type=color]{
-  width:22px;height:22px;padding:0;border:0;border-radius:50%;
-  cursor:pointer;flex:none;background:none;overflow:hidden;
-}
+input[type=color]{width:22px;height:22px;padding:0;border:0;border-radius:50%;cursor:pointer;flex:none;background:none;overflow:hidden}
 input[type=color]::-webkit-color-swatch-wrapper{padding:0}
 input[type=color]::-webkit-color-swatch{border:2px solid var(--surface);box-shadow:0 0 0 1px var(--line-2);border-radius:50%}
-
 #size-group{display:flex;align-items:center;gap:8px;flex:none}
 #size-group::before{content:"الحجم";font-size:11.5px;font-weight:600;color:var(--mut)}
 input[type=range]{width:100px;height:20px;accent-color:var(--acc);cursor:pointer;flex:none}
 #size-val{min-width:26px;text-align:center;font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink-2)}
 #size-dot{--d:8px;width:var(--d);height:var(--d);border-radius:50%;flex:none;box-shadow:0 0 0 1px var(--line-2);transition:all .15s;background:var(--ink)}
-
 #board-opts{display:none;align-items:center;gap:6px;flex:none}
 #board-opts .btn{height:30px;padding:0 10px;font-size:12px;background:var(--surface-2);border:1px solid transparent}
 #board-opts .btn.active{background:var(--acc-bg);color:var(--acc);border-color:var(--acc)}
 #board-opts .lbl{font-size:11.5px;font-weight:600;color:var(--mut);margin-inline-end:2px}
-
 .spacer{flex:1;min-width:8px}
 #history{display:flex;gap:2px;flex:none}
 .divider{width:1px;height:26px;background:var(--line);flex:none}
 
-/* ============ WORKSPACE ============ */
+/* WORKSPACE */
 #workspace{flex:1;display:flex;min-height:0;position:relative;background:var(--bg)}
-
-/* thumbnails */
-#thumbs{
-  width:140px;flex:none;background:var(--surface);border-inline-start:1px solid var(--line);
-  overflow-y:auto;padding:12px 14px;display:flex;flex-direction:column;gap:12px;
-  scrollbar-width:thin;scrollbar-color:var(--line-2) transparent;
-}
+#thumbs{width:140px;flex:none;background:var(--surface);border-inline-start:1px solid var(--line);overflow-y:auto;padding:12px 14px;display:flex;flex-direction:column;gap:12px;scrollbar-width:thin;scrollbar-color:var(--line-2) transparent}
 #thumbs::-webkit-scrollbar{width:6px}
 #thumbs::-webkit-scrollbar-thumb{background:var(--line-2);border-radius:3px}
 #thumbs.hidden{display:none}
-.thumb{
-  display:flex;flex-direction:column;align-items:center;gap:4px;padding:5px;
-  border:1.5px solid transparent;border-radius:var(--r-sm);flex:none;
-  transition:background .15s,border-color .15s;
-}
-.thumb canvas{width:100%;height:auto;background:#fff;border-radius:3px;box-shadow:0 0 0 1px var(--line),var(--shadow-sm)}
+.thumb{display:flex;flex-direction:column;align-items:center;gap:4px;padding:5px;border:1.5px solid transparent;border-radius:var(--r-sm);flex:none;transition:background .15s,border-color .15s}
+.thumb-img{width:100%;background:#f4f6fa;border-radius:3px;box-shadow:0 0 0 1px var(--line),var(--shadow-sm);overflow:hidden;display:flex;align-items:center;justify-content:center;color:var(--mut);font-size:11px}
+.thumb-img canvas{width:100%;height:100%;display:block;border-radius:3px}
 .thumb span{font-size:10.5px;font-weight:600;color:var(--mut)}
 .thumb:hover{background:var(--surface-2)}
 .thumb.on{background:var(--acc-bg);border-color:var(--acc)}
 .thumb.on span{color:var(--acc)}
 
-/* stage */
 #stage{flex:1;position:relative;min-width:0}
-#viewport{
-  position:absolute;inset:0;overflow:auto;direction:ltr;
-  scrollbar-width:thin;scrollbar-color:var(--line-2) transparent;
-  touch-action:none;
-}
+#viewport{position:absolute;inset:0;overflow:auto;direction:ltr;scrollbar-width:thin;scrollbar-color:var(--line-2) transparent;touch-action:none;-webkit-overflow-scrolling:touch}
 #viewport::-webkit-scrollbar{width:10px;height:10px}
 #viewport::-webkit-scrollbar-thumb{background:var(--line-2);border-radius:5px;border:2px solid var(--bg)}
 #viewport::-webkit-scrollbar-track{background:transparent}
 
-#pages{
-  direction:ltr;display:flex;flex-direction:column;align-items:center;
-  min-width:max-content;padding:32px 24px 120px;gap:20px;
-}
-.page{
-  position:relative;flex:none;background:#fff;border-radius:3px;
-  box-shadow:var(--shadow-md),0 1px 3px rgba(15,23,42,.15);
-  contain:layout paint;
-  touch-action:none;
-}
+#pages{direction:ltr;display:flex;flex-direction:column;align-items:center;min-width:max-content;padding:32px 24px 120px;gap:20px}
+.page{position:relative;flex:none;background:#fff;border-radius:3px;box-shadow:var(--shadow-md),0 1px 3px rgba(15,23,42,.15);contain:layout paint style;touch-action:none}
 .page.board{border-radius:6px}
 .page canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 .page .bg{z-index:0}
@@ -232,110 +154,47 @@ input[type=range]{width:100px;height:20px;accent-color:var(--acc);cursor:pointer
 [data-tool="hand"] .ink{cursor:grab}
 [data-tool="hand"] .ink:active{cursor:grabbing}
 
-.txt{
-  position:absolute;white-space:pre-wrap;line-height:1.4;outline:none;direction:rtl;
-  padding:0 2px;min-width:14px;color:#000;
-  font-family:'IBM Plex Sans Arabic',system-ui,sans-serif;
-  word-break:break-word;
-}
+.txt{position:absolute;white-space:pre-wrap;line-height:1.4;outline:none;direction:rtl;padding:0 2px;min-width:14px;color:#000;font-family:'IBM Plex Sans Arabic',system-ui,sans-serif;word-break:break-word}
 [data-tool="text"] .txt{pointer-events:auto;cursor:text}
 .txt:hover{outline:1px dashed var(--acc)}
-.txt[contenteditable="true"]{
-  outline:2px solid var(--acc);background:rgba(255,255,255,.92);
-  border-radius:2px;box-shadow:0 0 0 4px var(--acc-ring);
-}
+.txt[contenteditable="true"]{outline:2px solid var(--acc);background:rgba(255,255,255,.92);border-radius:2px;box-shadow:0 0 0 4px var(--acc-ring)}
 .page.board .txt[contenteditable="true"]{background:rgba(0,0,0,.25)}
 
-/* cursor ring */
-#cursor-ring{
-  position:fixed;border:1.5px solid var(--acc);border-radius:50%;
-  pointer-events:none;display:none;transform:translate(-50%,-50%);
-  z-index:100;background:var(--acc-ring);transition:width .08s,height .08s;
-}
+#cursor-ring{position:fixed;border:1.5px solid var(--acc);border-radius:50%;pointer-events:none;display:none;transform:translate(-50%,-50%);z-index:100;background:var(--acc-ring);transition:width .08s,height .08s}
 
-/* floating page nav */
-#page-nav{
-  position:absolute;bottom:20px;left:50%;transform:translateX(-50%);
-  display:none;align-items:center;gap:4px;padding:5px 7px;
-  background:var(--surface);border:1px solid var(--line);border-radius:14px;
-  box-shadow:var(--shadow-lg);z-index:10;direction:rtl;
-  backdrop-filter:blur(12px);
-}
+#page-nav{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);display:none;align-items:center;gap:4px;padding:5px 7px;background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-lg);z-index:10;direction:rtl;backdrop-filter:blur(12px)}
 body.has-doc #page-nav{display:flex}
 #page-nav .btn{height:30px;width:30px;padding:0;border-radius:7px}
-#page-num{
-  width:46px;height:30px;text-align:center;border:1px solid var(--line);
-  border-radius:7px;background:var(--surface-2);color:var(--ink);
-  font-size:13px;font-weight:600;font-variant-numeric:tabular-nums;
-}
+#page-num{width:46px;height:30px;text-align:center;border:1px solid var(--line);border-radius:7px;background:var(--surface-2);color:var(--ink);font-size:13px;font-weight:600;font-variant-numeric:tabular-nums}
 #page-total{font-size:12px;font-weight:600;color:var(--mut);min-width:26px;text-align:center}
 #zoom-val{min-width:48px;text-align:center;font-size:12.5px;font-weight:700;color:var(--ink-2);font-variant-numeric:tabular-nums}
 
-/* empty state */
 #empty{position:absolute;inset:0;display:flex;padding:24px;overflow:auto;z-index:5;background:var(--bg)}
 .empty-wrap{margin:auto;width:100%;max-width:640px;text-align:center}
-.empty-wrap .hero-icon{
-  width:64px;height:64px;margin:0 auto 20px;border-radius:18px;
-  background:linear-gradient(135deg,var(--acc-bg),var(--surface));
-  border:1px solid var(--line);display:flex;align-items:center;justify-content:center;
-  box-shadow:var(--shadow-md);
-}
+.empty-wrap .hero-icon{width:64px;height:64px;margin:0 auto 20px;border-radius:18px;background:linear-gradient(135deg,var(--acc-bg),var(--surface));border:1px solid var(--line);display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-md)}
 .empty-wrap .hero-icon svg{width:30px;height:30px;stroke:var(--acc);stroke-width:1.8}
 .empty-wrap h1{margin:0 0 8px;font-size:26px;font-weight:700;letter-spacing:-.4px}
 .empty-wrap>p{margin:0 0 30px;color:var(--mut);font-size:14px;line-height:1.9;max-width:460px;margin-inline:auto}
 .cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:26px}
-.card{
-  display:flex;flex-direction:column;align-items:flex-start;gap:6px;text-align:start;
-  padding:22px 20px;background:var(--surface);border:1px solid var(--line);
-  border-radius:var(--r-lg);transition:border-color .18s,box-shadow .18s,transform .18s;
-  box-shadow:var(--shadow-sm);
-}
+.card{display:flex;flex-direction:column;align-items:flex-start;gap:6px;text-align:start;padding:22px 20px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);transition:border-color .18s,box-shadow .18s,transform .18s;box-shadow:var(--shadow-sm)}
 .card:hover{border-color:var(--acc);box-shadow:var(--shadow-md);transform:translateY(-2px)}
-.card .ic{
-  width:44px;height:44px;border-radius:12px;background:var(--acc-bg);color:var(--acc);
-  display:flex;align-items:center;justify-content:center;margin-bottom:10px;
-}
+.card .ic{width:44px;height:44px;border-radius:12px;background:var(--acc-bg);color:var(--acc);display:flex;align-items:center;justify-content:center;margin-bottom:10px}
 .card .ic svg{width:22px;height:22px;stroke-width:2}
 .card b{font-size:15.5px;font-weight:700}
 .card small{font-size:12.5px;color:var(--mut);line-height:1.75}
-
 .shortcuts{display:flex;flex-wrap:wrap;justify-content:center;gap:7px}
-.kbd-chip{
-  display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--mut);
-  padding:6px 11px;border-radius:9px;background:var(--surface);
-  border:1px solid var(--line);
-}
+.kbd-chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--mut);padding:6px 11px;border-radius:9px;background:var(--surface);border:1px solid var(--line)}
 .kbd-chip svg{width:14px;height:14px;color:var(--ink-2)}
-kbd{
-  font:inherit;font-size:10.5px;font-weight:700;min-width:20px;text-align:center;
-  padding:2px 6px;border:1px solid var(--line-2);border-bottom-width:2px;
-  border-radius:5px;background:var(--surface-2);color:var(--ink-2);
-}
+kbd{font:inherit;font-size:10.5px;font-weight:700;min-width:20px;text-align:center;padding:2px 6px;border:1px solid var(--line-2);border-bottom-width:2px;border-radius:5px;background:var(--surface-2);color:var(--ink-2)}
 
-/* drop overlay */
-#drop{
-  position:absolute;inset:12px;border:2.5px dashed var(--acc);border-radius:var(--r-lg);
-  background:color-mix(in srgb,var(--acc-bg) 88%,transparent);
-  backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;
-  flex-direction:column;gap:12px;font-size:18px;font-weight:700;color:var(--acc);
-  z-index:60;pointer-events:none;
-}
+#drop{position:absolute;inset:12px;border:2.5px dashed var(--acc);border-radius:var(--r-lg);background:color-mix(in srgb,var(--acc-bg) 88%,transparent);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;flex-direction:column;gap:12px;font-size:18px;font-weight:700;color:var(--acc);z-index:60;pointer-events:none}
 #drop svg{width:44px;height:44px;stroke-width:1.6}
 
-/* toast */
-#toast{
-  position:fixed;bottom:92px;left:50%;transform:translateX(-50%) translateY(16px);
-  background:#0f172a;color:#fff;padding:11px 20px;border-radius:11px;
-  font-size:13px;font-weight:500;opacity:0;pointer-events:none;
-  transition:opacity .25s,transform .25s;z-index:200;
-  box-shadow:var(--shadow-lg);max-width:90vw;text-align:center;
-}
+#toast{position:fixed;bottom:92px;left:50%;transform:translateX(-50%) translateY(16px);background:#0f172a;color:#fff;padding:11px 20px;border-radius:11px;font-size:13px;font-weight:500;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:200;box-shadow:var(--shadow-lg);max-width:90vw;text-align:center}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-/* fullscreen */
 :fullscreen #page-nav,body:-webkit-full-screen #page-nav,body.fs #page-nav{bottom:24px}
 
-/* responsive */
 @media(max-width:1080px){.btn .lbl{display:none}}
 @media(max-width:820px){
   #thumbs{display:none}
@@ -356,7 +215,6 @@ kbd{
 </head>
 <body>
 
-<!-- TOP BAR -->
 <header id="top">
   <div id="brand">
     <span class="logo"><svg viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></span>
@@ -364,24 +222,15 @@ kbd{
   </div>
   <div id="tabs" role="tablist"></div>
   <div id="top-actions">
-    <button class="btn primary" id="btn-open" title="فتح ملف PDF">
-      <i data-i="open"></i><span class="lbl">فتح PDF</span>
-    </button>
-    <button class="btn ghost" id="btn-board" title="سبورة جديدة">
-      <i data-i="board"></i><span class="lbl">سبورة</span>
-    </button>
-    <button class="btn icon ghost" id="btn-fullscreen" title="ملء الشاشة (F11)">
-      <i data-i="expand"></i>
-    </button>
+    <button class="btn primary" id="btn-open" title="فتح ملف PDF"><i data-i="open"></i><span class="lbl">فتح PDF</span></button>
+    <button class="btn ghost" id="btn-board" title="سبورة جديدة"><i data-i="board"></i><span class="lbl">سبورة</span></button>
+    <button class="btn icon ghost" id="btn-fullscreen" title="ملء الشاشة (F11)"><i data-i="expand"></i></button>
   </div>
   <input type="file" id="file-input" accept="application/pdf,.pdf" multiple hidden>
 </header>
 
-<!-- COMMAND BAR -->
 <div id="cmd">
-  <button class="btn icon ghost" id="btn-thumbs" title="لوحة الصفحات" aria-label="لوحة الصفحات">
-    <i data-i="panel"></i>
-  </button>
+  <button class="btn icon ghost" id="btn-thumbs" title="لوحة الصفحات" aria-label="لوحة الصفحات"><i data-i="panel"></i></button>
   <div class="divider"></div>
   <div id="tools" role="toolbar"></div>
   <div class="divider"></div>
@@ -410,13 +259,10 @@ kbd{
   </div>
 </div>
 
-<!-- WORKSPACE -->
 <main id="workspace">
   <aside id="thumbs" class="hidden" aria-label="الصفحات"></aside>
   <div id="stage">
-    <div id="viewport">
-      <div id="pages"></div>
-    </div>
+    <div id="viewport"><div id="pages"></div></div>
 
     <div id="empty">
       <div class="empty-wrap">
@@ -424,16 +270,8 @@ kbd{
         <h1>ابدأ شغلك</h1>
         <p>افتح ملف PDF عشان تكتب عليه وتظلل وترسم، أو ابدأ بسبورة فاضية. تقدر تفتح لحد 5 ملفات في نفس الوقت.</p>
         <div class="cards">
-          <button class="card" id="card-open">
-            <span class="ic"><i data-i="open"></i></span>
-            <b>فتح ملف PDF</b>
-            <small>اختار ملف من جهازك أو اسحبه وأفلته في أي مكان في الصفحة.</small>
-          </button>
-          <button class="card" id="card-board">
-            <span class="ic"><i data-i="board"></i></span>
-            <b>سبورة جديدة</b>
-            <small>مساحة فاضية بخلفية مربعات أو خطوط أفقية للكتابة والرسم.</small>
-          </button>
+          <button class="card" id="card-open"><span class="ic"><i data-i="open"></i></span><b>فتح ملف PDF</b><small>اختار ملف من جهازك أو اسحبه وأفلته في أي مكان في الصفحة.</small></button>
+          <button class="card" id="card-board"><span class="ic"><i data-i="board"></i></span><b>سبورة جديدة</b><small>مساحة فاضية بخلفية مربعات أو خطوط أفقية للكتابة والرسم.</small></button>
         </div>
         <div class="shortcuts">
           <span class="kbd-chip"><i data-i="text"></i>كتابة <kbd>T</kbd></span>
@@ -469,7 +307,6 @@ kbd{
 
 <script>
 'use strict';
-/* ============ ICONS ============ */
 const ICONS = {
   open:'M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z',
   board:'M3 4h18v12H3zM8 20l4-4 4 4',
@@ -492,17 +329,21 @@ const ICONS = {
 const svg = n => `<svg viewBox="0 0 24 24"><path d="${ICONS[n]}"/></svg>`;
 document.querySelectorAll('[data-i]').forEach(el => el.innerHTML = svg(el.dataset.i));
 
-/* ============ DOM REFS ============ */
 const $ = id => document.getElementById(id);
 const pagesEl = $('pages'), viewport = $('viewport');
 const toastEl = $('toast');
 
-/* ============ PDF.js ============ */
 if (typeof pdfjsLib !== 'undefined') {
   pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 }
 
-/* ============ STATE ============ */
+/* ============ توافق وأداء ============ */
+const IS_TOUCH = typeof matchMedia === 'function' ? matchMedia('(pointer: coarse)').matches : ('ontouchstart' in window);
+const MAX_CANVAS_SIDE = IS_TOUCH ? 3072 : 4096;
+const MAX_DPR = IS_TOUCH ? 1.5 : 2;
+// هامش "البعيد عن الشاشة" — أي صفحة خارج النطاق ده يتم تفريغ ذاكرتها
+const VIEW_MARGIN = 600;
+
 const MAX_PDF = 5;
 const docs = [];
 let current = null;
@@ -520,20 +361,27 @@ const ranges = { text:[8,96], pen:[1,24], hl:[6,60], eraser:[8,90] };
 const colors = { text:'#111827', pen:'#e11d48', hl:'#ffe14d' };
 const PALETTE = ['#111827','#ffffff','#e11d48','#2563eb','#16a34a','#f59e0b','#ffe14d','#a855f7','#ff7ab6','#22d3ee'];
 const KEY_TOOL = { v:'hand', t:'text', p:'pen', h:'hl', e:'eraser' };
-const TOOL_DEFS = [
-  ['hand','تحريك','V'],['text','نص','T'],['pen','قلم','P'],['hl','هايلايت','H'],['eraser','ممحاة','E']
-];
+const TOOL_DEFS = [['hand','تحريك','V'],['text','نص','T'],['pen','قلم','P'],['hl','هايلايت','H'],['eraser','ممحاة','E']];
 
-/* ============ TOAST ============ */
-let toastTimer;
+let toastTimer = null;
 function toast(msg) {
   toastEl.textContent = msg;
   toastEl.classList.add('show');
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2400);
 }
+function showLoading(msg) {
+  toastEl.textContent = msg;
+  toastEl.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = null;
+}
+function hideLoading() {
+  toastEl.classList.remove('show');
+  toastTimer = null;
+}
 
-/* ============ TOOLS UI ============ */
+/* ============ TOOLS ============ */
 $('tools').innerHTML = TOOL_DEFS.map(([k,l,key]) =>
   `<button class="btn" data-tool="${k}" title="${l} (${key})">${svg(k)}<span class="lbl">${l}</span></button>`
 ).join('');
@@ -541,9 +389,7 @@ $('tools').innerHTML = TOOL_DEFS.map(([k,l,key]) =>
 function setTool(t) {
   tool = t;
   pagesEl.dataset.tool = t;
-  document.querySelectorAll('[data-tool]').forEach(b =>
-    b.classList.toggle('active', b.dataset.tool === t)
-  );
+  document.querySelectorAll('[data-tool]').forEach(b => b.classList.toggle('active', b.dataset.tool === t));
   const hasColor = t in colors;
   const hasSize = t in sizes;
   $('props').style.display = (hasColor || hasSize) ? 'flex' : 'none';
@@ -558,7 +404,6 @@ function setTool(t) {
   if (hasColor) drawColors();
   $('cursor-ring').style.display = 'none';
 }
-
 function updateSizeLabel() {
   $('size-val').textContent = sizes[tool];
   const d = $('size-dot');
@@ -566,7 +411,6 @@ function updateSizeLabel() {
   d.style.setProperty('--d', px + 'px');
   d.style.background = colors[tool] || 'var(--ink)';
 }
-
 function drawColors() {
   const cur = colors[tool];
   const palette = PALETTE.map(c =>
@@ -579,38 +423,26 @@ function drawColors() {
     if (tool in sizes) updateSizeLabel();
   };
 }
-
 $('colors').addEventListener('click', e => {
   const b = e.target.closest('[data-color]');
-  if (b) {
-    colors[tool] = b.dataset.color;
-    drawColors();
-    if (tool in sizes) updateSizeLabel();
-  }
+  if (b) { colors[tool] = b.dataset.color; drawColors(); if (tool in sizes) updateSizeLabel(); }
 });
-
 $('tools').addEventListener('click', e => {
   const b = e.target.closest('[data-tool]');
   if (b) setTool(b.dataset.tool);
 });
+$('size-range').addEventListener('input', e => { sizes[tool] = +e.target.value; updateSizeLabel(); });
 
-$('size-range').addEventListener('input', e => {
-  sizes[tool] = +e.target.value;
-  updateSizeLabel();
-});
-
-/* ============ FILES ============ */
+/* ============ FILES — تحميل تقدمي ============ */
 const fileInput = $('file-input');
 const pickFile = () => fileInput.click();
 $('btn-open').onclick = pickFile;
 $('card-open').onclick = pickFile;
 $('btn-board').onclick = openBoard;
 $('card-board').onclick = openBoard;
+fileInput.onchange = e => { addFiles([...e.target.files]); e.target.value = ''; };
 
-fileInput.onchange = e => {
-  addFiles([...e.target.files]);
-  e.target.value = '';
-};
+const yieldToUI = () => new Promise(r => setTimeout(r, 0));
 
 async function addFiles(files) {
   for (const f of files) {
@@ -619,22 +451,34 @@ async function addFiles(files) {
       toast('الحد الأقصى ' + MAX_PDF + ' ملفات مفتوحة'); break;
     }
     try {
-      toast('جارِ فتح الملف…');
+      showLoading('جارِ فتح الملف…');
+      await yieldToUI();
       const buf = await f.arrayBuffer();
+      showLoading('جارِ تحليل الملف…');
+      await yieldToUI();
       const pdf = await pdfjsLib.getDocument({ data: buf }).promise;
       const pages = [];
-      for (let i = 0; i < pdf.numPages; i++) {
+      const total = pdf.numPages;
+      // نعطي فرصة للواجهة كل عدة صفحات بدل ما نعمل بلوك مرة واحدة
+      const yieldEvery = total > 100 ? 2 : total > 30 ? 3 : 5;
+      for (let i = 0; i < total; i++) {
         const p = await pdf.getPage(i + 1);
         const v = p.getViewport({ scale: 1 });
         pages.push({ w: v.width, h: v.height, pdfPage: p, pdfDoc: pdf });
+        if ((i + 1) % yieldEvery === 0 || i === total - 1) {
+          showLoading(`جارِ تحميل الصفحات… ${i + 1} / ${total}`);
+          await yieldToUI();
+        }
       }
       addDoc({
         kind: 'pdf', name: f.name, pages, pdfDoc: pdf,
         ann: pages.map(() => []),
         undo: [], redo: [], zoom: null, scroll: 0, page: 1
       });
+      hideLoading();
       toast('تم فتح الملف ✓');
     } catch (err) {
+      hideLoading();
       console.error(err);
       toast('تعذّر فتح الملف (ممكن يكون محمي بباسورد)');
     }
@@ -652,7 +496,6 @@ function addDoc(d) {
   docs.push(d);
   showDoc(d);
 }
-
 function openBoard() {
   let d = docs.find(x => x.kind === 'board');
   if (d) { showDoc(d); return; }
@@ -665,7 +508,61 @@ function openBoard() {
   setTool(tool === 'hand' || tool === 'text' ? 'pen' : tool);
 }
 
-/* ============ VIEWER / RENDER ============ */
+/* ============ أدوات مساعدة للـ canvas ============ */
+function getCanvasMetrics(pg) {
+  const z = current.zoom;
+  const dpr = Math.min(devicePixelRatio || 1, MAX_DPR);
+  let scale = z * dpr;
+  if (pg.w * scale > MAX_CANVAS_SIDE) scale = MAX_CANVAS_SIDE / pg.w;
+  if (pg.h * scale > MAX_CANVAS_SIDE) scale = Math.min(scale, MAX_CANVAS_SIDE / pg.h);
+  return {
+    scale,
+    W: Math.max(1, Math.round(pg.w * scale)),
+    H: Math.max(1, Math.round(pg.h * scale))
+  };
+}
+
+function ensureCanvases(w) {
+  let bg = w.querySelector('.bg');
+  let ink = w.querySelector('.ink');
+  if (!bg) {
+    bg = document.createElement('canvas');
+    bg.className = 'bg';
+    w.insertBefore(bg, w.firstChild);
+  }
+  if (!ink) {
+    ink = document.createElement('canvas');
+    ink.className = 'ink';
+    w.insertBefore(ink, bg.nextSibling);
+  }
+  return { bg, ink };
+}
+
+function isPageVisible(w) {
+  const r = w.getBoundingClientRect();
+  const vp = viewport.getBoundingClientRect();
+  return r.bottom > vp.top - VIEW_MARGIN && r.top < vp.bottom + VIEW_MARGIN;
+}
+
+/* تفريغ ذاكرة الصفحة (يستخدم عند الخروج من الشاشة) */
+function freePageCanvases(w) {
+  const tl = w.querySelector('.txt-layer');
+  if (tl) {
+    const active = document.activeElement;
+    if (active && active.isContentEditable && tl.contains(active)) {
+      try { active.blur(); } catch(_) {}
+    }
+  }
+  const bg = w.querySelector('.bg');
+  const ink = w.querySelector('.ink');
+  if (bg && (bg.width > 1 || bg.height > 1)) { bg.width = 1; bg.height = 1; }
+  if (ink && (ink.width > 1 || ink.height > 1)) { ink.width = 1; ink.height = 1; }
+  if (tl) tl.innerHTML = '';
+  w._z = null;
+  if (w._task) { try { w._task.cancel(); } catch(_) {} w._task = null; }
+}
+
+/* ============ VIEWER ============ */
 function disposeObserver() {
   if (observer) { observer.disconnect(); observer = null; }
   if (thumbObserver) { thumbObserver.disconnect(); thumbObserver = null; }
@@ -676,13 +573,18 @@ function setupObserver() {
   observer = new IntersectionObserver(entries => {
     for (const e of entries) {
       if (e.isIntersecting) {
-        if (e.target._z !== current.zoom) renderPage(e.target);
+        if (e.target._z !== current.zoom) {
+          renderPage(e.target);
+          redrawInk(+e.target.dataset.i);
+        }
       } else {
-        const t = e.target._task;
-        if (t) { try { t.cancel(); } catch(_) {} e.target._task = null; }
+        // خرج من الشاشة — نفرغ ذاكرته
+        if (!drag || drag.i !== +e.target.dataset.i) {
+          freePageCanvases(e.target);
+        }
       }
     }
-  }, { root: viewport, rootMargin: '600px 0px' });
+  }, { root: viewport, rootMargin: VIEW_MARGIN + 'px 0px' });
   [...pagesEl.children].forEach(w => observer.observe(w));
 }
 
@@ -702,20 +604,26 @@ function showDoc(d) {
     const w = document.createElement('div');
     w.className = 'page' + (d.kind === 'board' ? ' board' : '');
     w.dataset.i = i;
-    w.innerHTML = '<canvas class="bg"></canvas><canvas class="ink"></canvas><div class="txt-layer"></div>';
+    // ماينشئش كانفس هنا خالص — الكانفس هيتعمل لما الصفحة تبان
+    w.innerHTML = '<div class="txt-layer"></div>';
     frag.appendChild(w);
   });
   pagesEl.appendChild(frag);
 
   sizeAllPages();
   viewport.scrollTop = d.scroll || 0;
-  [...pagesEl.children].forEach((w) => { w._z = null; });
+  [...pagesEl.children].forEach(w => { w._z = null; });
+
   setupObserver();
-  [...pagesEl.children].forEach(w => {
-    const r = w.getBoundingClientRect();
-    if (r.top < viewport.clientHeight + 600 && r.bottom > -600) renderPage(w);
+
+  // رسم فوري للصفحات اللي على الشاشة بس
+  [...pagesEl.children].forEach((w, i) => {
+    if (isPageVisible(w)) {
+      renderPage(w);
+      redrawInk(i);
+    }
   });
-  d.pages.forEach((_, i) => redrawInk(i));
+
   buildThumbs(d);
   syncUI();
 }
@@ -731,56 +639,48 @@ function renderPage(w) {
   const i = +w.dataset.i;
   const d = current;
   const pg = d.pages[i];
-  const z = d.zoom;
-  const dpr = Math.min(devicePixelRatio || 1, 2);
-  const canvas = w.querySelector('.bg');
-  w._z = z;
   if (w._task) { try { w._task.cancel(); } catch(_) {} w._task = null; }
-
-  const W = Math.round(pg.w * z * dpr);
-  const H = Math.round(pg.h * z * dpr);
+  const canvas = ensureCanvases(w).bg;
+  const { scale, W, H } = getCanvasMetrics(pg);
+  w._z = d.zoom;
   if (canvas.width !== W || canvas.height !== H) {
     canvas.width = W; canvas.height = H;
   }
   const ctx = canvas.getContext('2d');
 
   if (d.kind === 'board') {
-    drawBoardBackground(ctx, canvas, d, z, dpr);
+    drawBoardBackground(ctx, canvas, d, scale);
     return;
   }
   const page = pg.pdfPage;
   if (!page) return;
   const task = page.render({
     canvasContext: ctx,
-    viewport: page.getViewport({ scale: z * dpr })
+    viewport: page.getViewport({ scale })
   });
   w._task = task;
-  task.promise.then(() => { w._task = null; }).catch(() => { w._task = null; });
+  task.promise
+    .then(() => { w._task = null; })
+    .catch(() => { w._task = null; w._z = null; });
 }
 
-/* ✅ الخلفية: "خطوط" بقت أفقية بالعرض، "مربعات" شبكة كاملة، "سادة" بدون */
-function drawBoardBackground(ctx, canvas, d, z, dpr) {
+function drawBoardBackground(ctx, canvas, d, scale) {
   const bg = d.bg || '#ffffff';
-  const step = 40 * z * dpr;
+  const step = 40 * scale;
   ctx.fillStyle = bg;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   const dark = bg !== '#ffffff';
   ctx.strokeStyle = dark ? 'rgba(255,255,255,.16)' : 'rgba(70,90,130,.2)';
-  ctx.lineWidth = Math.max(1, dpr);
+  ctx.lineWidth = Math.max(1, Math.min(2, scale));
   ctx.beginPath();
-
-  // خطوط أفقية بالعرض (لنمط "خطوط" و"مربعات")
   if (d.pat === 'grid' || d.pat === 'lines') {
     for (let y = step; y < canvas.height; y += step) {
-      ctx.moveTo(0, y);
-      ctx.lineTo(canvas.width, y);
+      ctx.moveTo(0, y); ctx.lineTo(canvas.width, y);
     }
   }
-  // خطوط رأسية بس في نمط "مربعات"
   if (d.pat === 'grid') {
     for (let x = step; x < canvas.width; x += step) {
-      ctx.moveTo(x, 0);
-      ctx.lineTo(x, canvas.height);
+      ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height);
     }
   }
   ctx.stroke();
@@ -789,27 +689,47 @@ function drawBoardBackground(ctx, canvas, d, z, dpr) {
 function redrawInk(i) {
   const w = pagesEl.children[i];
   if (!w) return;
+
+  // لا تعيد الرسم لو المستخدم بيكتب على الصفحة دي دلوقتي
+  const active = document.activeElement;
+  if (active && active.isContentEditable && w.contains(active)) return;
+
+  const ann = current.ann[i];
+  const ink = w.querySelector('.ink');
+  const layer = w.querySelector('.txt-layer');
+
+  // مافيش تعديلات → نفرغ الـ ink canvas
+  if (!ann.length) {
+    if (ink && (ink.width > 1 || ink.height > 1)) { ink.width = 1; ink.height = 1; }
+    if (layer) layer.innerHTML = '';
+    return;
+  }
+
+  // الصفحة بعيدة عن الشاشة → نفرغ الذاكرة (هتترسم لما ترجع)
+  if (!isPageVisible(w)) {
+    if (ink && (ink.width > 1 || ink.height > 1)) { ink.width = 1; ink.height = 1; }
+    if (layer) layer.innerHTML = '';
+    return;
+  }
+
   const pg = current.pages[i];
   const z = current.zoom;
-  const dpr = Math.min(devicePixelRatio || 1, 2);
-  const canvas = w.querySelector('.ink');
-  const W = Math.round(pg.w * z * dpr);
-  const H = Math.round(pg.h * z * dpr);
+  const canvas = ensureCanvases(w).ink;
+  const { scale, W, H } = getCanvasMetrics(pg);
   if (canvas.width !== W || canvas.height !== H) {
     canvas.width = W; canvas.height = H;
   }
   const ctx = canvas.getContext('2d');
   ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.clearRect(0, 0, W, H);
-  ctx.setTransform(z * dpr, 0, 0, z * dpr, 0, 0);
+  ctx.setTransform(scale, 0, 0, scale, 0, 0);
   ctx.lineJoin = 'round';
   ctx.lineCap = 'round';
 
-  const layer = w.querySelector('.txt-layer');
-  layer.innerHTML = '';
+  if (layer) layer.innerHTML = '';
   const frag = document.createDocumentFragment();
 
-  for (const item of current.ann[i]) {
+  for (const item of ann) {
     if (item.t === 'x') {
       const el = document.createElement('div');
       el.className = 'txt';
@@ -842,21 +762,35 @@ function redrawInk(i) {
     ctx.stroke();
   }
   ctx.globalAlpha = 1;
-  layer.appendChild(frag);
+  if (layer) layer.appendChild(frag);
 }
 
-const redrawAllInk = () => current.pages.forEach((_, i) => redrawInk(i));
+function redrawAllInk() {
+  current.pages.forEach((_, i) => redrawInk(i));
+}
 
-/* ============ SNAPSHOT / UNDO ============ */
+function rerenderVisible() {
+  if (!current) return;
+  [...pagesEl.children].forEach((w, i) => {
+    if (isPageVisible(w)) {
+      w._z = null;
+      renderPage(w);
+      redrawInk(i);
+    } else {
+      freePageCanvases(w);
+    }
+  });
+  setupObserver();
+}
+
+/* ============ UNDO/REDO ============ */
 const snapshot = () => JSON.stringify(current.ann);
-
 function pushHistory(before) {
   current.undo.push(before);
   if (current.undo.length > 60) current.undo.shift();
   current.redo = [];
   syncUI(true);
 }
-
 function undo() {
   if (!current) return;
   if (!current.undo.length) { toast('مفيش تعديلات للرجوع عنها'); return; }
@@ -865,7 +799,6 @@ function undo() {
   redrawAllInk();
   syncUI(true);
 }
-
 function redo() {
   if (!current || !current.redo.length) return;
   current.undo.push(snapshot());
@@ -873,7 +806,6 @@ function redo() {
   redrawAllInk();
   syncUI(true);
 }
-
 $('btn-undo').onclick = undo;
 $('btn-redo').onclick = redo;
 
@@ -882,7 +814,6 @@ function getPoint(e, w) {
   const r = w.getBoundingClientRect();
   return [(e.clientX - r.left) / current.zoom, (e.clientY - r.top) / current.zoom];
 }
-
 function distToSeg(px, py, a, b) {
   const dx = b[0] - a[0], dy = b[1] - a[1];
   const len2 = dx * dx + dy * dy;
@@ -890,7 +821,6 @@ function distToSeg(px, py, a, b) {
   t = Math.max(0, Math.min(1, t));
   return Math.hypot(px - a[0] - t * dx, py - a[1] - t * dy);
 }
-
 function eraseAt(x, y) {
   const r = sizes.eraser / 2;
   const i = drag.i;
@@ -898,7 +828,6 @@ function eraseAt(x, y) {
   const els = [...drag.w.querySelectorAll('.txt')];
   const z = current.zoom;
   const before = a.length;
-
   current.ann[i] = a.filter(item => {
     if (item.t === 'x') {
       const el = els.find(q => q._item === item);
@@ -909,19 +838,13 @@ function eraseAt(x, y) {
     }
     const pts = item.pts;
     const R = r + item.w / 2;
-    if (pts.length === 1) {
-      return Math.hypot(x - pts[0][0], y - pts[0][1]) > R;
-    }
+    if (pts.length === 1) return Math.hypot(x - pts[0][0], y - pts[0][1]) > R;
     for (let j = 1; j < pts.length; j++) {
       if (distToSeg(x, y, pts[j-1], pts[j]) <= R) return false;
     }
     return true;
   });
-
-  if (current.ann[i].length !== before) {
-    drag.changed = true;
-    redrawInk(i);
-  }
+  if (current.ann[i].length !== before) { drag.changed = true; redrawInk(i); }
 }
 
 pagesEl.addEventListener('pointerdown', e => {
@@ -931,12 +854,10 @@ pagesEl.addEventListener('pointerdown', e => {
   const w = canvas.parentNode;
   const i = +w.dataset.i;
   const [x, y] = getPoint(e, w);
-
   activePointers.add(e.pointerId);
   drag = { i, w, before: snapshot(), changed: false, last: [x, y], pointerId: e.pointerId };
   canvas.setPointerCapture(e.pointerId);
   e.preventDefault();
-
   if (tool === 'eraser') {
     eraseAt(x, y);
   } else {
@@ -949,7 +870,6 @@ pagesEl.addEventListener('pointerdown', e => {
 
 pagesEl.addEventListener('pointermove', e => {
   if (!drag) return;
-
   if (tool === 'eraser') {
     const [x, y] = getPoint(e, drag.w);
     const [lx, ly] = drag.last;
@@ -983,15 +903,8 @@ function endDrag() {
   activePointers.delete(drag.pointerId);
   drag = null;
 }
-
-pagesEl.addEventListener('pointerup', e => {
-  activePointers.delete(e.pointerId);
-  endDrag();
-});
-pagesEl.addEventListener('pointercancel', e => {
-  activePointers.delete(e.pointerId);
-  endDrag();
-});
+pagesEl.addEventListener('pointerup', e => { activePointers.delete(e.pointerId); endDrag(); });
+pagesEl.addEventListener('pointercancel', e => { activePointers.delete(e.pointerId); endDrag(); });
 
 /* ============ TEXT ============ */
 function editText(i, el, item, x, y) {
@@ -1003,7 +916,6 @@ function editText(i, el, item, x, y) {
   const sel = getSelection();
   sel.removeAllRanges();
   sel.addRange(r);
-
   el.onkeydown = e => { if (e.key === 'Escape') el.blur(); };
   el.onblur = () => {
     el.onblur = null;
@@ -1046,21 +958,16 @@ pagesEl.addEventListener('click', e => {
   editText(+w.dataset.i, el, null, x, y);
 });
 
-/* ============ PAN + PINCH ZOOM ============ */
+/* ============ PAN + PINCH ============ */
 viewport.addEventListener('pointerdown', e => {
   if (tool === 'hand' && e.target.closest('.ink') && !pan) {
-    pan = {
-      x: e.clientX, y: e.clientY,
-      l: viewport.scrollLeft, t: viewport.scrollTop,
-      pointerId: e.pointerId
-    };
+    pan = { x: e.clientX, y: e.clientY, l: viewport.scrollLeft, t: viewport.scrollTop, pointerId: e.pointerId };
     if (e.pointerType === 'touch') {
       try { e.target.closest('.ink').setPointerCapture(e.pointerId); } catch(_) {}
       e.preventDefault();
     }
   }
 });
-
 window.addEventListener('pointermove', e => {
   if (pan && pan.pointerId === e.pointerId) {
     viewport.scrollLeft = pan.l - (e.clientX - pan.x);
@@ -1076,25 +983,27 @@ window.addEventListener('pointermove', e => {
   ring.style.left = e.clientX + 'px';
   ring.style.top = e.clientY + 'px';
 });
-
 window.addEventListener('pointerup', () => { pan = null; });
 window.addEventListener('pointercancel', () => { pan = null; });
 
+/* pinch zoom: مايعيدش الرسم أثناء اللمس، يعيده بس بعد ما يخلص */
 viewport.addEventListener('touchstart', e => {
-  if (e.touches.length === 2 && current) {
+  if (e.touches.length === 2 && current && !pinch) {
     if (drag) endDrag();
     pan = null;
-
+    // نلغي أي رندر جاري عشان مايتزاحمش مع pinch
+    [...pagesEl.children].forEach(w => {
+      if (w._task) { try { w._task.cancel(); } catch(_) {} w._task = null; }
+    });
     const [t1, t2] = e.touches;
     const rect = viewport.getBoundingClientRect();
-    const cx = (t1.clientX + t2.clientX) / 2 - rect.left;
-    const cy = (t1.clientY + t2.clientY) / 2 - rect.top;
-
+    const midX = (t1.clientX + t2.clientX) / 2 - rect.left;
+    const midY = (t1.clientY + t2.clientY) / 2 - rect.top;
     pinch = {
       dist: Math.hypot(t2.clientX - t1.clientX, t2.clientY - t1.clientY),
-      oldZoom: current.zoom,
-      contentX: viewport.scrollLeft + cx,
-      contentY: viewport.scrollTop + cy
+      initialZoom: current.zoom,
+      contentX: viewport.scrollLeft + midX,
+      contentY: viewport.scrollTop + midY
     };
     e.preventDefault();
   }
@@ -1105,33 +1014,31 @@ viewport.addEventListener('touchmove', e => {
     e.preventDefault();
     const [t1, t2] = e.touches;
     const newDist = Math.hypot(t2.clientX - t1.clientX, t2.clientY - t1.clientY);
-    const factor = newDist / pinch.dist;
-    const newZoom = Math.max(.3, Math.min(4, pinch.oldZoom * factor));
-    const ratio = newZoom / pinch.oldZoom;
-
+    const newZoom = Math.max(.3, Math.min(4, pinch.initialZoom * (newDist / pinch.dist)));
+    const ratio = newZoom / pinch.initialZoom;
     current.zoom = newZoom;
-    sizeAllPages();
-    redrawAllInk();
-    [...pagesEl.children].forEach(w => { w._z = null; });
-    setupObserver();
-
-    const newContentX = pinch.contentX * ratio;
-    const newContentY = pinch.contentY * ratio;
+    sizeAllPages(); // الكانفس يتمدد بـ CSS — سريع جداً
     const rect = viewport.getBoundingClientRect();
-    const cx = (t1.clientX + t2.clientX) / 2 - rect.left;
-    const cy = (t1.clientY + t2.clientY) / 2 - rect.top;
-
-    viewport.scrollLeft = newContentX - cx;
-    viewport.scrollTop = newContentY - cy;
+    const midX = (t1.clientX + t2.clientX) / 2 - rect.left;
+    const midY = (t1.clientY + t2.clientY) / 2 - rect.top;
+    viewport.scrollLeft = pinch.contentX * ratio - midX;
+    viewport.scrollTop = pinch.contentY * ratio - midY;
     syncUI(true);
   }
 }, { passive: false });
 
 viewport.addEventListener('touchend', e => {
-  if (e.touches.length < 2) pinch = null;
+  if (pinch && e.touches.length !== 2) {
+    pinch = null;
+    rerenderVisible();
+    syncUI(true);
+  }
 });
-viewport.addEventListener('touchcancel', () => { pinch = null; });
+viewport.addEventListener('touchcancel', () => {
+  if (pinch) { pinch = null; rerenderVisible(); syncUI(true); }
+});
 
+/* scroll */
 let scrollRaf;
 viewport.addEventListener('scroll', () => {
   if (!current) return;
@@ -1140,25 +1047,22 @@ viewport.addEventListener('scroll', () => {
     current.scroll = viewport.scrollTop;
     const marker = viewport.scrollTop + viewport.clientHeight * .35;
     let p = 1;
-    [...pagesEl.children].forEach((w, i) => {
-      if (w.offsetTop <= marker) p = i + 1;
-    });
+    [...pagesEl.children].forEach((w, i) => { if (w.offsetTop <= marker) p = i + 1; });
     if (p !== current.page) { current.page = p; syncUI(true); }
   });
 }, { passive: true });
 
 function zoomBy(factor) {
   if (!current) return;
+  const newZoom = Math.max(.3, Math.min(4, current.zoom * factor));
+  if (Math.abs(newZoom - current.zoom) < 0.001) return;
   const ratio = viewport.scrollTop / (viewport.scrollHeight || 1);
-  current.zoom = Math.max(.3, Math.min(4, current.zoom * factor));
+  current.zoom = newZoom;
   sizeAllPages();
-  redrawAllInk();
-  [...pagesEl.children].forEach(w => { w._z = null; });
-  setupObserver();
+  rerenderVisible();
   viewport.scrollTop = ratio * viewport.scrollHeight;
   syncUI(true);
 }
-
 $('zoom-in').onclick = () => zoomBy(1.2);
 $('zoom-out').onclick = () => zoomBy(1/1.2);
 $('zoom-fit').onclick = () => {
@@ -1166,12 +1070,8 @@ $('zoom-fit').onclick = () => {
   const target = Math.min(2.4, Math.max(.4, (viewport.clientWidth - 44) / current.pages[0].w));
   zoomBy(target / current.zoom);
 };
-
 viewport.addEventListener('wheel', e => {
-  if (e.ctrlKey) {
-    e.preventDefault();
-    zoomBy(e.deltaY < 0 ? 1.1 : 1/1.1);
-  }
+  if (e.ctrlKey) { e.preventDefault(); zoomBy(e.deltaY < 0 ? 1.1 : 1/1.1); }
 }, { passive: false });
 
 /* ============ PAGE NAV ============ */
@@ -1181,20 +1081,20 @@ const goToPage = p => {
   const target = pagesEl.children[p - 1];
   if (target) viewport.scrollTop = target.offsetTop - 16;
 };
-
 $('page-num').addEventListener('change', e => goToPage(+e.target.value || 1));
 $('nav-prev').onclick = () => current && goToPage(current.page - 1);
 $('nav-next').onclick = () => current && goToPage(current.page + 1);
 
-/* ============ THUMBNAILS ============ */
+/* ============ THUMBNAILS — lazy placeholders ============ */
 function buildThumbs(d) {
   const t = $('thumbs');
   if (thumbObserver) thumbObserver.disconnect();
   t.scrollTop = 0;
   if (d.kind !== 'pdf') { t.innerHTML = ''; return; }
+
   t.innerHTML = d.pages.map((p, i) =>
     `<button class="thumb" data-page="${i+1}">
-       <canvas width="144" height="${Math.round(144 * p.h / p.w)}"></canvas>
+       <div class="thumb-img" data-aspect="${p.w}/${p.h}" style="aspect-ratio:${p.w}/${p.h}"></div>
        <span>${i+1}</span>
      </button>`
   ).join('');
@@ -1205,12 +1105,19 @@ function buildThumbs(d) {
         e.target._rendered = 1;
         const pg = current.pages[+e.target.dataset.page - 1];
         if (!pg || !pg.pdfPage) continue;
-        const c = e.target.querySelector('canvas');
-        const scale = c.width / pg.w;
-        pg.pdfPage.render({
-          canvasContext: c.getContext('2d'),
-          viewport: pg.pdfPage.getViewport({ scale })
-        }).promise.catch(() => {});
+        const holder = e.target.querySelector('.thumb-img');
+        if (!holder) continue;
+        const c = document.createElement('canvas');
+        c.width = 144;
+        c.height = Math.round(144 * pg.h / pg.w);
+        holder.innerHTML = '';
+        holder.appendChild(c);
+        try {
+          pg.pdfPage.render({
+            canvasContext: c.getContext('2d'),
+            viewport: pg.pdfPage.getViewport({ scale: c.width / pg.w })
+          }).promise.catch(() => {});
+        } catch(_) {}
       }
     }
   }, { root: t, rootMargin: '240px' });
@@ -1222,7 +1129,6 @@ $('thumbs').addEventListener('click', e => {
   const b = e.target.closest('.thumb');
   if (b) goToPage(+b.dataset.page);
 });
-
 $('btn-thumbs').onclick = e => {
   const t = $('thumbs');
   t.classList.toggle('hidden');
@@ -1258,7 +1164,6 @@ function syncUI(light) {
   const isPdf = has && current.kind === 'pdf';
   const isBoard = has && current.kind === 'board';
   document.body.classList.toggle('has-doc', has);
-
   $('btn-undo').disabled = !has || !current.undo.length;
   $('btn-redo').disabled = !has || !current.redo.length;
   $('zoom-val').textContent = has ? Math.round(current.zoom * 100) + '%' : '';
@@ -1267,28 +1172,21 @@ function syncUI(light) {
   $('page-num').disabled = !has;
   $('board-opts').style.display = isBoard ? 'flex' : 'none';
   $('btn-thumbs').disabled = !isPdf;
-
   document.querySelectorAll('[data-pattern]').forEach(b =>
-    b.classList.toggle('active', isBoard && b.dataset.pattern === current.pat)
-  );
+    b.classList.toggle('active', isBoard && b.dataset.pattern === current.pat));
   document.querySelectorAll('[data-bgcolor]').forEach(b =>
-    b.classList.toggle('active', isBoard && b.dataset.bgcolor === current.bg)
-  );
-
+    b.classList.toggle('active', isBoard && b.dataset.bgcolor === current.bg));
   $('empty').style.display = has ? 'none' : 'flex';
   $('thumbs').classList.toggle('hidden', !isPdf);
-
   if (isPdf) {
     document.querySelectorAll('.thumb').forEach(b =>
-      b.classList.toggle('on', +b.dataset.page === current.page)
-    );
-    const active = document.querySelector('.thumb.on');
+      b.classList.toggle('on', +b.dataset.page === current.page));
+    const activeEl = document.querySelector('.thumb.on');
     const t = $('thumbs');
-    if (active && (active.offsetTop < t.scrollTop || active.offsetTop + active.offsetHeight > t.scrollTop + t.clientHeight)) {
-      t.scrollTop = active.offsetTop - 40;
+    if (activeEl && (activeEl.offsetTop < t.scrollTop || activeEl.offsetTop + activeEl.offsetHeight > t.scrollTop + t.clientHeight)) {
+      t.scrollTop = activeEl.offsetTop - 40;
     }
   }
-
   if (light === true && has) return;
   renderTabs();
 }
@@ -1303,9 +1201,7 @@ function renderTabs() {
     </div>
   `).join('');
 }
-
-const escapeHtml = s => s.replace(/[&<>"']/g, c =>
-  ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+const escapeHtml = s => s.replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
 
 $('tabs').addEventListener('click', e => {
   const closeBtn = e.target.closest('[data-close]');
@@ -1330,9 +1226,7 @@ $('tabs').addEventListener('click', e => {
 });
 
 function closeDoc(d) {
-  if (d.pdfDoc && d.pdfDoc.destroy) {
-    try { d.pdfDoc.destroy(); } catch(_) {}
-  }
+  if (d.pdfDoc && d.pdfDoc.destroy) { try { d.pdfDoc.destroy(); } catch(_) {} }
   d.pages.forEach(p => { if (p.pdfPage) p.pdfPage = null; });
   const idx = docs.indexOf(d);
   if (idx >= 0) docs.splice(idx, 1);
@@ -1346,18 +1240,14 @@ function closeDoc(d) {
   } else {
     syncUI();
   }
-  if (window.gc) { try { window.gc(); } catch(_) {} }
 }
 
 /* ============ FULLSCREEN ============ */
-function isFullscreen() {
-  return !!(document.fullscreenElement || document.webkitFullscreenElement);
-}
+function isFullscreen() { return !!(document.fullscreenElement || document.webkitFullscreenElement); }
 function toggleFullscreen() {
   const el = document.documentElement;
-  if (isFullscreen()) {
-    (document.exitFullscreen || document.webkitExitFullscreen).call(document);
-  } else {
+  if (isFullscreen()) (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+  else {
     const req = el.requestFullscreen || el.webkitRequestFullscreen;
     if (req) req.call(el, { navigationUI: 'hide' });
   }
@@ -1368,18 +1258,11 @@ document.addEventListener('fullscreenchange', () => {
   document.body.classList.toggle('fs', fs);
   $('btn-fullscreen').innerHTML = svg(fs ? 'shrink' : 'expand');
 });
-$('btn-fullscreen').innerHTML = svg('expand');
 
 /* ============ DROP ============ */
 let dragDepth = 0;
-window.addEventListener('dragenter', e => {
-  e.preventDefault();
-  dragDepth++;
-  $('drop').style.display = 'flex';
-});
-window.addEventListener('dragleave', () => {
-  if (--dragDepth <= 0) { dragDepth = 0; $('drop').style.display = 'none'; }
-});
+window.addEventListener('dragenter', e => { e.preventDefault(); dragDepth++; $('drop').style.display = 'flex'; });
+window.addEventListener('dragleave', () => { if (--dragDepth <= 0) { dragDepth = 0; $('drop').style.display = 'none'; } });
 window.addEventListener('dragover', e => e.preventDefault());
 window.addEventListener('drop', e => {
   e.preventDefault();
@@ -1393,7 +1276,6 @@ window.addEventListener('keydown', e => {
   if (e.target.isContentEditable || /^(INPUT|TEXTAREA)$/.test(e.target.tagName)) return;
   const k = e.key.toLowerCase();
   const mod = e.ctrlKey || e.metaKey;
-
   if (mod && k === 'z') { e.preventDefault(); e.shiftKey ? redo() : undo(); }
   else if (mod && k === 'y') { e.preventDefault(); redo(); }
   else if (mod && k === 'o') { e.preventDefault(); pickFile(); }
